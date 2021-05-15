@@ -1,0 +1,33 @@
+Paano gumawa ng database?
+
+1. Gawa ka muna ng django project:
+    ~ pipenv install django
+    ~ pipenv shell
+    ~ django-admin startproject config .
+    ~ djangp-admin startapp <app-name>
+2. Gawa ka ng templates, ayusin sa settings.py
+3. I-migrate ang existing database:
+    ~ py manage.py migrate
+4. Gawa ng model depende sa gusto mo:
+    class <databaseName>(models.Model):
+        name=models.CharField(200),
+        etc. etc.
+5. Gumawa ng migrations at i-migrate:
+    ~ py manage.py makemigrations <appName>
+    ~ py manage.py migrate
+6. I-register sa admin.py ang model para makita sa admin panel:
+    from .models import <appName>
+    admin.site.register('databaseName')
+7. Done!
+
+Paano magloop ng data galing sa database:
+1. Gumawa ng class sa views.py na tinatawag ang model at template
+    *ListView para magloop sa data
+    class HomePageView(ListView):
+        model=<modelName>
+        template_name='home.html'
+        context_object_name='all_posts_list' (para lang mas maging readable ang code kapag tinawag sa template)
+
+2. Gumawa ng urlpatters sa urls.py ng app
+3. I-include ang app.urls sa urls.py ng project
+4. Gumawa ng template at magloop gamit ang for loop
